@@ -1,0 +1,29 @@
+.model small
+.data
+x db "Enter the string :$" arr db 20 dup('$')
+y db 0ah,0dh, "String is :$"
+
+.code
+.startup
+print macro a lea dx,a
+mov ah,09h int 21h endm
+print x mov si,00h
+
+l1:
+mov ah,01h int 21h
+mov arr[si],al inc si
+cmp al,0dh je l2
+jmp l1
+
+l2:
+print y
+mov si,00h l3:
+mov dl,arr[si] mov ah,02h int 21h
+inc si
+cmp al,0dh je l4
+jmp l3
+ 
+ 
+
+l4:
+.exit end 
