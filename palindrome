@@ -1,0 +1,23 @@
+.model small
+.data
+x db "Enter the string :$"
+y db 0ah,0dh, "Palindrome $"
+z db 0ah,0dh, "Not palindrome $" arr db 20 dup('$')
+.code
+.startup
+print macro a lea dx,a
+mov ah,09h int 21h endm
+print x mov si,00h l1:
+mov ah,01h int  21h cmp al,0dh je l2
+mov arr[si],al inc si
+jmp l1
+ 
+ 
+
+l2:
+dec si
+mov di,00h l3:
+mov al,arr[si] mov ah,arr[di] cmp al,ah
+jne  l4 inc di dec si cmp di,si jl  l3 print y jmp e
+l4: print z e:
+.exit end 
