@@ -1,0 +1,27 @@
+.model small
+.data
+x db "Enter the first number :$"
+y db 0ah,0dh, "Enter the second number :$" z db 0ah,0dh, "Result is :$"
+
+.code
+.startup
+
+print macro a lea dx,a
+mov ah,09h int 21h endm
+
+read macro b mov ah,01h int 21h
+sub al,30h mov bh,al endm
+
+print x read a mov ch,bh
+
+print y read b
+
+print z
+
+mov al,bh add al,ch mov dl,al
+ 
+ 
+
+add dl,30h mov ah,02h int 21h
+
+.exit end
